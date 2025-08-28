@@ -20,6 +20,7 @@
 
 :root {
     --font-header: clamp(1.25rem, 3vw, 2.25rem);
+    --font-big: clamp(1.1rem, 3vw, 1.8rem);
     --font-text: clamp(0.95rem, 0.5vw + 0.8rem, 1.05rem);
     --font-small: clamp(0.8rem, 0.4vw + 0.6rem, 0.95rem);
     --font-bold: 700;
@@ -143,6 +144,8 @@ main {
     height: calc(100vh - 80px);
 }
 
+.main__pokedex-details-container,
+.main__pokedex-container-wrapper,
 .main__pokedex-container,
 .main__pokedex-loader {
     width: 100%;
@@ -192,12 +195,13 @@ main {
 
 .main__pokedex-container {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, 280px);
     gap: clamp(1rem, 2vw, 2.5rem);
     padding: 10px;
     position: relative;
     overflow-y: auto;
     height: 100%;
+    justify-content: start;
     align-content: start;
 }
 
@@ -210,7 +214,6 @@ main {
     padding: 10px;
     border: 1px solid var(--black);
     width: 100%;
-    max-width: 320px;
     height: 250px;
     position: relative;
     overflow: hidden;
@@ -457,12 +460,248 @@ input:checked+span::before {
     transform: translateX(20px);
 }
 
+.main__pokedex-details-container {
+    padding: var(--space-3);
+}
+
+.main__pokedex-details-card {
+    background-color: var(--red);
+    padding: var(--space-3);
+    border-radius: 20px;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    overflow-y: auto;
+}
+
+.main__details-header {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    margin-bottom: var(--space-3);
+    color: var(--white);
+}
+
+.main__details-header-back {
+    position: absolute;
+    left: 10px;
+    top: 0;
+    cursor: pointer;
+    background-color: rgba(255, 255, 255, 0.2);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s ease;
+}
+
+.main__details-header-back img {
+    width: 30px;
+    height: 30px;
+}
+
+.main__details-header-back:hover {
+    background-color: rgba(255, 255, 255, 0.3);
+    transform: scale(1.1);
+}
+
+.main__details-header-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-1);
+    width: 100%;
+}
+
+.main__details-header-title-name {
+    font-size: var(--font-big);
+    font-weight: var(--font-bold);
+    text-transform: capitalize;
+}
+
+.main__details-header-title-number {
+    font-size: var(--font-small);
+    font-weight: var(--font-regular);
+    background-color: rgba(255, 255, 255, 0.2);
+    padding: 4px 8px;
+    border-radius: 10px;
+}
+
+.main__details-header-title-types {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    gap: var(--space-1);
+}
+
+.main__details-header-title-types-type {
+    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    padding: 4px 8px;
+    border-radius: 10px;
+    font-size: var(--font-small);
+    color: var(--white);
+    text-transform: capitalize;
+    font-weight: var(--font-bold);
+}
+
+.main__details-image {
+    display: flex;
+    justify-content: center;
+    margin-bottom: var(--space-3);
+}
+
+.main__details-image img {
+    width: 200px;
+    height: 200px;
+    object-fit: contain;
+    filter: drop-shadow(0 0 10px rgba(0, 0, 0, 0.3));
+}
+
+.main__details-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-3);
+}
+
+.main__details-section {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+    padding: var(--space-3);
+}
+
+.main__details-section-title {
+    font-size: var(--font-text);
+    font-weight: var(--font-bold);
+    color: var(--white);
+    margin-bottom: var(--space-2);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: var(--space-1);
+}
+
+.main__details-about-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    gap: var(--space-2);
+}
+
+.main__details-about-item {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.main__details-about-label {
+    font-size: var(--font-small);
+    color: rgba(255, 255, 255, 0.8);
+    text-transform: capitalize;
+}
+
+.main__details-about-value {
+    font-size: var(--font-text);
+    color: var(--white);
+    font-weight: var(--font-bold);
+}
+
+.main__details-stats {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.main__details-stat-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+.main__details-stat-name {
+    font-size: var(--font-small);
+    color: var(--white);
+    text-transform: capitalize;
+    min-width: 80px;
+}
+
+.main__details-stat-bar {
+    flex: 1;
+    height: 8px;
+    background-color: rgba(255, 255, 255, 0.3);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.main__details-stat-fill {
+    height: 100%;
+    background-color: var(--white);
+    border-radius: 4px;
+    transition: width 0.3s ease;
+}
+
+.main__details-stat-value {
+    font-size: var(--font-small);
+    color: var(--white);
+    font-weight: var(--font-bold);
+    min-width: 30px;
+    text-align: right;
+}
+
+.main__details-evolution {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-2);
+}
+
+.main__details-evolution-chain {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-2);
+    flex-wrap: wrap;
+}
+
+.main__details-evolution-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-1);
+    background-color: rgba(255, 255, 255, 0.1);
+    padding: var(--space-2);
+    border-radius: 10px;
+    min-width: 80px;
+}
+
+.main__details-evolution-item img {
+    width: 60px;
+    height: 60px;
+    object-fit: contain;
+}
+
+.main__details-evolution-item-name {
+    font-size: var(--font-small);
+    color: var(--white);
+    text-align: center;
+    text-transform: capitalize;
+}
+
+.main__details-evolution-arrow {
+    color: var(--white);
+    font-size: 20px;
+    font-weight: var(--font-bold);
+}
+
 
 /* Media Queries */
-@media (max-width: 768px) {
+@media (max-width: 1280px) {
     .main__pokedex-container {
         grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
         gap: var(--space-2);
+        justify-content: start;
     }
 
 }
@@ -496,5 +735,26 @@ input:checked+span::before {
         width: 100%;
         min-height: 200px;
         max-width: none;
+    }
+
+    .main__pokedex-details-container {
+        padding: var(--space-2);
+    }
+
+    .main__details-image img {
+        width: 150px;
+        height: 150px;
+    }
+
+    .main__details-about-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .main__details-evolution-chain {
+        flex-direction: column;
+    }
+
+    .main__details-evolution-arrow {
+        transform: rotate(90deg);
     }
 }

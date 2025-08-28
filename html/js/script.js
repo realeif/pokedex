@@ -21,6 +21,7 @@ var isFilterMenuOpen = false;
 var pokemon = null;
 var allPokemons = [];
 var allTypes = [];
+var filteredPokemons = [];
 
 const colorMap = {
     fire: "#e03a3a",
@@ -64,7 +65,8 @@ async function getAllPokemons() {
         
         await loadAllPokemonTypes();
         
-        displayPokemons(allPokemons);
+        filteredPokemons = [...allPokemons];
+        displayPokemons();
     } catch (error) {
         console.error('Fehler beim Laden der Pokemon:', error);
     }
@@ -122,10 +124,10 @@ async function getPokemon(pokemon) {
     }
 }
 
-async function displayPokemons(pokemons) {
+async function displayPokemons() {
     pokedexContainer.innerHTML = '';
     
-    for (const pokemon of pokemons) {
+    for (const pokemon of filteredPokemons) {
         const pokemonId = pokemon.url.split('/')[6];
         
         if (pokemon.types) {
@@ -185,15 +187,14 @@ function applyActiveFilters() {
     const activeTypes = Array.from(activeCheckboxes).map(checkbox => checkbox.parentElement.id);
     
     if (activeTypes.length === 0) {
-        displayPokemons(allPokemons);
-        return;
+        filteredPokemons = [...allPokemons];
+    } else {
+        filteredPokemons = allPokemons.filter(pokemon => 
+            pokemon.types.some(type => activeTypes.includes(type.type.name))
+        );
     }
     
-    const filteredPokemons = allPokemons.filter(pokemon => 
-        pokemon.types.some(type => activeTypes.includes(type.type.name))
-    );
-    
-    displayPokemons(filteredPokemons);
+    displayPokemons();
 }
 
 function resetAllFilters() {
@@ -202,7 +203,30 @@ function resetAllFilters() {
         checkbox.checked = false;
     });
     
-    displayPokemons(allPokemons);
+    filteredPokemons = [...allPokemons];
+    displayPokemons();
+}
+
+function applySearchAndFilters() {
+    let searchResults = allPokemons;
+    
+    if (searchInput.value.length > 0) {
+        searchResults = allPokemons.filter(pokemon => 
+            pokemon.name.startsWith(searchInput.value.toLowerCase())
+        );
+    }
+    
+    const activeCheckboxes = filterMenuItems.querySelectorAll('input[type="checkbox"]:checked');
+    const activeTypes = Array.from(activeCheckboxes).map(checkbox => checkbox.parentElement.id);
+    
+    if (activeTypes.length > 0) {
+        searchResults = searchResults.filter(pokemon => 
+            pokemon.types && pokemon.types.some(type => activeTypes.includes(type.type.name))
+        );
+    }
+    
+    filteredPokemons = searchResults;
+    displayPokemons();
 }
 
 // Events 
@@ -217,8 +241,9 @@ searchInput.addEventListener('input', function () {
     searchInput.value = searchInput.value.trim();
 
     if (searchInput.value.length === 0) {
-        loadPokedex()
-        displayPokemons(allPokemons);
+        applyActiveFilters();
+    } else {
+        applySearchAndFilters();
     }
 });
 
@@ -230,12 +255,9 @@ searchInput.addEventListener('keydown', function (event) {
 
 searchButton.addEventListener('click', function () {
     if (searchInput.value.length > 0) {
-        const filteredPokemons = allPokemons.filter(pokemon => pokemon.name.startsWith(searchInput.value));
-        loadPokedex()
-        displayPokemons(filteredPokemons);
+        applySearchAndFilters();
     } else {
-        loadPokedex()
-        displayPokemons(allPokemons);
+        applyActiveFilters();
     }
 });
 
