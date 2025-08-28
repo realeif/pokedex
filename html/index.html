@@ -5,21 +5,58 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pokedex</title>
 
-    <link rel="icon" href="./assets/img/pokeball_color.svg">
+    <link rel="icon" href="assets/img/pokeball_color.svg">
 
-    <link rel="stylesheet" href="./css/index.css">
-    <script src="./js/index.js" defer></script>
+    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="css/animations.css">
+    <script src="js/script.js" defer></script>
 </head>
 <body>
     <header>
         <div class="header__logo-container">
-            <img src="./assets/img/pokeball_color.svg" alt="Pokeball">
+            <img src="assets/img/pokeball_color.svg" alt="Pokeball">
             <h1>Pokedex</h1>
         </div>
 
         <div class="header__search-container">
-            
+            <img src="assets/icon/search.svg" alt="Search" id="search-icon">
+            <input type="text" id="pokemon-search" placeholder="Pokemon suchen">
+
+            <button class="header__search-container-button">
+                <img src="assets/img/pokeball_bw.svg" alt="Pokeball">
+            </button>
         </div>
     </header>
+
+    <main>
+        <div class="main__pokedex-loader" style="display: none;">
+            <img src="assets/img/pokeball_bw.svg" alt="Pokeball">
+            <p>Lade Pokedex <span>.</span><span>.</span><span>.</span></p>
+        </div>
+
+        <div class="main__pokedex-container">
+            <div class="main__pokedex-card">
+                <div class="main__pokedex-card-header">
+                    <h2>Pikachu</h2>
+
+                    <div class="main__pokedex-card-header-number">
+                        <p>#001</p>
+                    </div>
+                </div>
+
+                <div class="main__pokedex-card-types">
+                    <div class="main__pokedex-card-types-type">
+                        <p>Electric</p>
+                    </div>
+                    <div class="main__pokedex-card-types-type">
+                        <p>Electrictesttttt</p>
+                    </div>
+                </div>
+
+                <div class="main__pokedex-card-image">
+                </div>
+            </div>
+        </div>
+    </main>
 </body>
 </html>
