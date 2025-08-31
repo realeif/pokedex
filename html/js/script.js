@@ -390,6 +390,19 @@ function hideAutocomplete() {
     searchAutocomplete.style.display = 'none';
 }
 
+function darkenColor(color, factor) {
+    const hex = color.replace('#', '');
+    const r = parseInt(hex.substr(0, 2), 16);
+    const g = parseInt(hex.substr(2, 2), 16);
+    const b = parseInt(hex.substr(4, 2), 16);
+    
+    const darkerR = Math.max(0, Math.floor(r * (1 - factor)));
+    const darkerG = Math.max(0, Math.floor(g * (1 - factor)));
+    const darkerB = Math.max(0, Math.floor(b * (1 - factor)));
+    
+    return `#${darkerR.toString(16).padStart(2, '0')}${darkerG.toString(16).padStart(2, '0')}${darkerB.toString(16).padStart(2, '0')}`;
+}
+
 function scrollToGrid() {
     const gridContainer = document.querySelector('.main__pokedex-container');
     
@@ -672,8 +685,8 @@ async function showDetailView(pokemon, pokemonName, pokemonId, cardColor) {
 
     const detailCard = document.createElement('div');
     detailCard.classList.add('main__pokedex-details-card');
-    // Subtile Hintergrundfarbe mit Transparenz
-    detailCard.style.backgroundColor = `${cardColor}20`; // 20 = 12% Transparenz
+    const darkerColor = darkenColor(cardColor, 0.3);
+    detailCard.style.backgroundColor = darkerColor;
     detailCard.innerHTML = `
         <div class="main__details-header">
             <button class="main__details-header-back" id="pokedex-details-back">
