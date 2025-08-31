@@ -27,17 +27,45 @@
             </button>
         </div>
     </header>
+    
+    <div class="header__search-autocomplete" id="search-autocomplete" style="display: none;"></div>
 
     <main>
-        <div class="main__pokedex-loader" id="pokedex-loader">
-            <img src="assets/img/pokeball_bw.svg" alt="Pokeball">
-            <p>Lade Pokedex <span>.</span><span>.</span><span>.</span></p>
-        </div>
+        <div class="main__pokedex-container-wrapper" >
+            <div class="main__pokedex-loader" id="pokedex-loader">
+                <img src="assets/img/pokeball_bw.svg" alt="Pokeball">
+            </div>
 
-        <div class="main__pokedex-container-wrapper" style="display: none;">
-            <div class="main__pokedex-container" id="pokedex-container" style="display: none;"></div>
+            <div class="main__pokedex-container" id="pokedex-container">
+                <div class="main__pokedex-grid" id="pokedex-grid"></div>
+                
+                <div class="main__pokedex-pagination" id="pokedex-pagination" style="display: none;">
+                    <button class="main__pokedex-pagination-button" id="pokedex-pagination-button-first" title="Erste Seite">
+                        <img src="assets/icon/arrow_last.svg" alt="Arrow First" style="transform: rotate(180deg);">
+                    </button>
+                    <button class="main__pokedex-pagination-button" id="pokedex-pagination-button-prev">
+                        <img src="assets/icon/arrow_left.svg" alt="Arrow Left">
+                    </button>
+                    <div class="main__pokedex-pagination-info">
+                        <span>Seite</span>
+                        <span class="main__pokedex-pagination-page" id="pokedex-pagination-current-page">1</span>
+                        <span>von</span>
+                        <span class="main__pokedex-pagination-page" id="pokedex-pagination-total-pages">1</span>
+                    </div>
+                    <button class="main__pokedex-pagination-button" id="pokedex-pagination-button-next">
+                        <img src="assets/icon/arrow_right.svg" alt="Arrow Right">
+                    </button>
+                    <button class="main__pokedex-pagination-button" id="pokedex-pagination-button-last" title="Letzte Seite">
+                        <img src="assets/icon/arrow_last.svg" alt="Arrow Last">
+                    </button>
+                </div>
+            </div>
 
-            <div class="main__pokedex-filter-container">
+            <div class="main__pokedex-details-container" id="pokedex-details-container" style="display: none;">
+            
+            </div>
+
+            <div class="main__pokedex-filter-container" id="pokedex-filter-container">
                 <button class="main__pokedex-filter-button" id="pokedex-filter-button">
                     <img src="assets/icon/filter.svg" alt="Filter">
                 </button>
@@ -55,123 +83,6 @@
             </div>
         </div>
 
-        <div class="main__pokedex-details-container" id="pokedex-details-container">
-            <div class="main__pokedex-details-card">
-                <div class="main__details-header">
-                    <button class="main__details-header-back" id="pokedex-details-back">
-                        <img src="assets/icon/back.svg" alt="Back">
-                    </button>
-                    <div class="main__details-header-title">
-                        <p class="main__details-header-title-name">Name</p>
-                        <p class="main__details-header-title-number">#0001</p>
-                    </div>
-                    <div class="main__details-header-title-types" id="pokedex-details-header-types">
-                    </div>
-                </div>
-
-                <div class="main__details-image">
-                    <img src="" alt="Pokemon" id="pokedex-details-image">
-                </div>
-
-                <div class="main__details-content">
-                    <div class="main__details-section">
-                        <h3 class="main__details-section-title">About</h3>
-                        <div class="main__details-about-grid">
-                            <div class="main__details-about-item">
-                                <p class="main__details-about-label">Species</p>
-                                <p class="main__details-about-value" id="pokedex-details-species">-</p>
-                            </div>
-                            <div class="main__details-about-item">
-                                <p class="main__details-about-label">Height</p>
-                                <p class="main__details-about-value" id="pokedex-details-height">-</p>
-                            </div>
-                            <div class="main__details-about-item">
-                                <p class="main__details-about-label">Weight</p>
-                                <p class="main__details-about-value" id="pokedex-details-weight">-</p>
-                            </div>
-                            <div class="main__details-about-item">
-                                <p class="main__details-about-label">Abilities</p>
-                                <p class="main__details-about-value" id="pokedex-details-abilities">-</p>
-                            </div>
-                            <div class="main__details-about-item">
-                                <p class="main__details-about-label">Gender</p>
-                                <p class="main__details-about-value" id="pokedex-details-gender">-</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="main__details-section">
-                        <h3 class="main__details-section-title">Stats</h3>
-                        <div class="main__details-stats">
-                            <div class="main__details-stat-item">
-                                <p class="main__details-stat-name">HP</p>
-                                <div class="main__details-stat-bar">
-                                    <div class="main__details-stat-fill" id="pokedex-details-stat-hp" style="width: 10%"></div>
-                                </div>
-                                <p class="main__details-stat-value" id="pokedex-details-stat-hp-value">0</p>
-                            </div>
-                            <div class="main__details-stat-item">
-                                <p class="main__details-stat-name">Attack</p>
-                                <div class="main__details-stat-bar">
-                                    <div class="main__details-stat-fill" id="pokedex-details-stat-attack" style="width: 0%"></div>
-                                </div>
-                                <p class="main__details-stat-value" id="pokedex-details-stat-attack-value">0</p>
-                            </div>
-                            <div class="main__details-stat-item">
-                                <p class="main__details-stat-name">Defense</p>
-                                <div class="main__details-stat-bar">
-                                    <div class="main__details-stat-fill" id="pokedex-details-stat-defense" style="width: 0%"></div>
-                                </div>
-                                <p class="main__details-stat-value" id="pokedex-details-stat-defense-value">0</p>
-                            </div>
-                            <div class="main__details-stat-item">
-                                <p class="main__details-stat-name">Sp. Atk</p>
-                                <div class="main__details-stat-bar">
-                                    <div class="main__details-stat-fill" id="pokedex-details-stat-spatk" style="width: 0%"></div>
-                                </div>
-                                <p class="main__details-stat-value" id="pokedex-details-stat-spatk-value">0</p>
-                            </div>
-                            <div class="main__details-stat-item">
-                                <p class="main__details-stat-name">Sp. Def</p>
-                                <div class="main__details-stat-bar">
-                                    <div class="main__details-stat-fill" id="pokedex-details-stat-spdef" style="width: 0%"></div>
-                                </div>
-                                <p class="main__details-stat-value" id="pokedex-details-stat-spdef-value">0</p>
-                            </div>
-                            <div class="main__details-stat-item">
-                                <p class="main__details-stat-name">Speed</p>
-                                <div class="main__details-stat-bar">
-                                    <div class="main__details-stat-fill" id="pokedex-details-stat-speed" style="width: 0%"></div>
-                                </div>
-                                <p class="main__details-stat-value" id="pokedex-details-stat-speed-value">0</p>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="main__details-section">
-                        <h3 class="main__details-section-title">Evolution</h3>
-                        <div class="main__details-evolution">
-                            <div class="main__details-evolution-chain" id="pokedex-details-evolution-chain">
-                                <div class="main__details-evolution-item">
-                                    <img src="" alt="Pokemon" id="pokedex-details-evolution-1-img">
-                                    <p class="main__details-evolution-item-name" id="pokedex-details-evolution-1-name">-</p>
-                                </div>
-                                <div class="main__details-evolution-arrow">→</div>
-                                <div class="main__details-evolution-item">
-                                    <img src="" alt="Pokemon" id="pokedex-details-evolution-2-img">
-                                    <p class="main__details-evolution-item-name" id="pokedex-details-evolution-2-name">-</p>
-                                </div>
-                                <div class="main__details-evolution-arrow">→</div>
-                                <div class="main__details-evolution-item">
-                                    <img src="" alt="Pokemon" id="pokedex-details-evolution-3-img">
-                                    <p class="main__details-evolution-item-name" id="pokedex-details-evolution-3-name">-</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>
 
 
     </main>
