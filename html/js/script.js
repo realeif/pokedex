@@ -916,7 +916,7 @@ async function showDetailView(pokemon, pokemonName, pokemonId, cardColor) {
                     </div>
                     <div class="main__details-about-item">
                         <p class="main__details-about-label">Gender</p>
-                        <p class="main__details-about-value" id="pokedex-details-gender">${male} männlich / ${female} weiblich</p>
+                        <p class="main__details-about-value" id="pokedex-details-gender">${male} male / ${female} female</p>
                     </div>
                 </div>
             </div>
