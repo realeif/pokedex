@@ -811,6 +811,7 @@ async function buildEvolutionChain(evolutionChain) {
 }
 
 async function showDetailView(pokemon, pokemonName, pokemonId, cardColor) {
+    showLoader();
     detailViewContainer.innerHTML = '';
     detailViewContainer.style.display = 'flex';
     togglePokedexGrid(false);
@@ -941,4 +942,6 @@ async function showDetailView(pokemon, pokemonName, pokemonId, cardColor) {
 
     `;
     detailViewContainer.appendChild(detailCard);
+    hideLoader();
+
 }
