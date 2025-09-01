@@ -316,8 +316,17 @@ function goToPage(page) {
     
     currentPage = page;
 
+    const activeTypeFilters = [];
+    const checkboxes = filterMenuItems.querySelectorAll('input[type="checkbox"]:checked');
+    checkboxes.forEach(checkbox => {
+        const typeName = checkbox.closest('.main__pokedex-filter-menu-item').querySelector('p').textContent;
+        activeTypeFilters.push(typeName);
+    });
+
     if (searchInput.value.length > 0) {
         loadFilteredPokemonsForPage();
+    } else if (activeTypeFilters.length > 0) {
+        loadFilteredPokemonsByTypeForPage(activeTypeFilters);
     } else {
         loadCurrentPagePokemons();
     }
@@ -611,6 +620,52 @@ async function loadFilteredPokemonsWithTypes(searchResults, typeFilters) {
         filteredPokemonCount = filteredPokemons.length;
         totalPages = Math.ceil(filteredPokemonCount / itemsPerPage);
         currentPage = 1;
+        updatePaginationDisplay();
+        
+        hideLoader();
+    } catch (error) {
+        hideLoader();
+    }
+}
+
+async function loadFilteredPokemonsByTypeForPage(typeFilters) {
+    showLoader();
+    
+    try {        
+        const promises = allPokemonNames.map(async (name) => {
+            try {
+                const response = await fetch(`${api}pokemon/${name}`);
+                const data = await response.json();
+                
+                const pokemonTypes = data.types.map(t => t.type.name);
+                const hasMatchingType = typeFilters.some(filterType => 
+                    pokemonTypes.includes(filterType)
+                );
+                
+                if (hasMatchingType) {
+                    return {
+                        name: data.name,
+                        url: data.url,
+                        types: data.types,
+                        id: data.id
+                    };
+                }
+                return null;
+            } catch (error) {
+                return null;
+            }
+        });
+        
+        const allFilteredPokemons = (await Promise.all(promises)).filter(p => p !== null);
+        
+        const startIndex = (currentPage - 1) * itemsPerPage;
+        const endIndex = startIndex + itemsPerPage;
+        const pagePokemons = allFilteredPokemons.slice(startIndex, endIndex);
+        
+        displayPokemons(pagePokemons);
+        
+        filteredPokemonCount = allFilteredPokemons.length;
+        totalPages = Math.ceil(filteredPokemonCount / itemsPerPage);
         updatePaginationDisplay();
         
         hideLoader();
