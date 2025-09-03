@@ -692,7 +692,7 @@ searchInput.addEventListener('input', function () {
 
     if (searchInput.value.length === 0) {
         hideAutocomplete();
-        resetToNormalView();
+        applyActiveFilters();
     } else {
         applySearchAndFilters();
     }
@@ -943,5 +943,4 @@ async function showDetailView(pokemon, pokemonName, pokemonId, cardColor) {
     `;
     detailViewContainer.appendChild(detailCard);
     hideLoader();
-
 }

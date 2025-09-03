@@ -625,6 +625,7 @@ input:checked+span::before {
     font-weight: var(--font-bold);
     display: flex;
     gap: 6px;
+    flex-wrap: wrap;
 }
 
 .main__details-ability-item {
@@ -851,8 +852,8 @@ input:checked+span::before {
         height: 150px;
     }
 
-    .main__details-about-grid {
-        grid-template-columns: 1fr;
+  .main__details-about-grid {
+      grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     }
 
     .main__details-evolution-chain {
